@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
   int codigo;
@@ -11,25 +12,47 @@ typedef struct {
   int quantidade;
 } Carrinho;
 
-void listarProdutos(Produto produtos[]);
+void cadastrarProduto(Produto produtos[], int posicao);
+
+void listarProdutos(Produto produtos[], int pos_atual);
 
 void infoProduto(Produto produto);
 
 int main() {
   Produto produtos[50];
   Carrinho carrinho[50];
-  int entrada;
+  int entrada, pos_pro = 0, pos_car = 0;
+
+  printf("MERCADINHO BOA VISTA\n");
+  printf("Vendemos com honestidade e confianca\n");
 
   do {
+    printf("\nDigite o que deseja fazer no sistema:\n");
+    printf("[1] Cadastrar produtos\n");
+    printf("[2] Listar produtos\n");
+    printf("[3] Comprar produto\n");
+    printf("[4] Visualizar carrinho\n");
+    printf("[5] Finalizar pedido\n");
+    printf("Opcao: ");
+
     scanf("%d", &entrada);
+    getchar();
 
     switch (entrada) {
       case 1:
-        /*Cadastrar produtos*/
+        do {
+          cadastrarProduto(produtos, pos_pro);
+          pos_pro++;
+
+          printf("\nProduto cadastrado com sucesso!\n");
+          printf("\nDeseja cadastrar mais?\n[1] Sim [0] Nao: ");
+          scanf("%d", &entrada);
+          getchar();
+        } while (entrada != 0);
         break;
 
       case 2:
-        listarProdutos(produtos);
+        listarProdutos(produtos, pos_pro);
         break;
 
       case 3:
@@ -48,22 +71,37 @@ int main() {
         printf("\nOpção inválida!\n");
     }
 
+    printf("\nDeseja finalizar o sistema?\n[0] Sim [1] Nao: ");
     scanf("%d", &entrada);
+    system("clear");
   } while (entrada != 0);
 
   return 0;
 }
 
-void listarProdutos(Produto produtos[]) {
-  for (int i = 0; i <= 50; ++i) {
-    if (produtos[i].codigo == i) {
-      infoProduto(produtos[i]);
-    }
+void cadastrarProduto(Produto produtos[], int posicao) {
+  system("clear");
+  produtos[posicao].codigo = posicao;
+
+  printf("Digite as informacoes do produto:\n");
+  printf("Nome do produto: ");
+  fgets(produtos[posicao].nome, sizeof(produtos[posicao].nome), stdin);
+
+  printf("Preco do produto: ");
+  scanf("%f", &produtos[posicao].preco);
+  getchar();
+}
+
+void listarProdutos(Produto produtos[], int pos_atual) {
+  system("clear");
+  printf("Produtos listados:");
+  for (int i = 0; i < pos_atual; ++i) {
+    infoProduto(produtos[i]);
   }
 }
 
 void infoProduto(Produto produto) {
   printf("\nCodigo do produto: %d\n", produto.codigo);
-  printf("Nome do produto: %s\n", produto.nome);
+  printf("Nome do produto: %s", produto.nome);
   printf("Preco do produto: %.2f\n", produto.preco);
 }
