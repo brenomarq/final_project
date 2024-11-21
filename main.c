@@ -20,6 +20,8 @@ void infoProduto(Produto produto);
 
 void visualizarCarrinho(Carrinho carrinho[], int pos_atual);
 
+void fecharPedido(Carrinho carrinho[], int pos_atual);
+
 int main() {
   Produto produtos[50];
   Carrinho carrinho[50];
@@ -66,14 +68,15 @@ int main() {
         break;
 
       case 5:
-        /*Fechar pedido*/
+        fecharPedido(carrinho, pos_car);
+        pos_car = 0; // Reinicia o carrinho
         break;
 
       default:
-        printf("\nOpção inválida!\n");
+        printf("\nOpção invalida!\n");
     }
 
-    printf("\nDeseja finalizar o sistema?\n[0] Sim [1] Nao: ");
+    printf("\nDeseja continuar no sistema?\n[1] Sim [0] Nao: ");
     scanf("%d", &entrada);
     system("clear");
   } while (entrada != 0);
@@ -89,14 +92,18 @@ void cadastrarProduto(Produto produtos[], int posicao) {
   printf("Nome do produto: ");
   fgets(produtos[posicao].nome, sizeof(produtos[posicao].nome), stdin);
 
-  printf("Preco do produto: ");
+  printf("Preco do produto: R$");
   scanf("%f", &produtos[posicao].preco);
   getchar();
 }
 
 void listarProdutos(Produto produtos[], int pos_atual) {
-  system("clear");
-  printf("Produtos listados:");
+  if (pos_atual == 0) {
+    printf("\nNao ha produtos cadastrados ainda!\n");
+    return;
+  }
+
+  printf("\nProdutos listados:");
   for (int i = 0; i < pos_atual; ++i) {
     infoProduto(produtos[i]);
   }
@@ -105,7 +112,7 @@ void listarProdutos(Produto produtos[], int pos_atual) {
 void infoProduto(Produto produto) {
   printf("\nCodigo do produto: %d\n", produto.codigo);
   printf("Nome do produto: %s", produto.nome);
-  printf("Preco do produto: %.2f\n", produto.preco);
+  printf("Preco do produto: R$%.2f\n", produto.preco);
 }
 
 void visualizarCarrinho(Carrinho carrinho[], int pos_atual) {
@@ -119,4 +126,21 @@ void visualizarCarrinho(Carrinho carrinho[], int pos_atual) {
     printf("\nProduto: %s", carrinho[i].produto.nome);
     printf("Quantidade: %d\n", carrinho[i].quantidade);
   }
+}
+
+void fecharPedido(Carrinho carrinho[], int pos_atual) {
+  float soma = 0;
+
+  system("clear");
+  printf("FATURA DETALHADA");
+  for (int i = 0; i < pos_atual; ++i) {
+    printf("\nProduto: %s Quantidade: %d\n",
+    carrinho[i].produto.nome,
+    carrinho[i].quantidade);
+    printf("Valor: %.2f\n", carrinho[i].produto.preco * carrinho[i].quantidade);
+
+    soma += carrinho[i].produto.preco * carrinho[i].quantidade;
+  }
+
+  printf("\nO valor total eh R$%.2f\n");
 }
