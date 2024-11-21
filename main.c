@@ -13,26 +13,49 @@ typedef struct {
   int quantidade;
 } Carrinho;
 
+/*Responsavel por todo o fluxo do programa.*/
+void menu();
+
+/*Cadastra o produto na lista de produtos.*/
 void cadastrarProduto(Produto produtos[], int posicao);
 
+/*Lista todos os produtos da lista de produtos.*/
 void listarProdutos(Produto produtos[], int pos_atual);
 
+/*Adiciona o produto ao carrinho e retorna 1, caso deva incrementar a posicao,
+e 0, caso nao.*/
 int comprarProduto(Produto produtos[], Carrinho carrinho[], int pos_pro, int pos_car);
 
+/*Retorna um produto da lista pelo codigo especificado.*/
 Produto pegarProdutoPorCodigo(int codigo, Produto produtos[]);
 
+/*Imprime as informacoes detalhadas do produto*/
 void infoProduto(Produto produto);
 
+/*Confere se aquele produto com o codigo especificado ja foi adicionado
+ao carrinho.*/
 int temNoCarrinho(int codigo, Carrinho carrinho[], int pos_atual);
 
+/*Lista todos os produtos ja adicionados ao carrinho de maneira detalhada.*/
 void visualizarCarrinho(Carrinho carrinho[], int pos_atual);
 
+/*Fecha o pedido gerando uma fatura detalhada ao usuario e reiniciando
+o carrinho.*/
 void fecharPedido(Carrinho carrinho[], int pos_atual);
 
 int main() {
+  menu();
+
+  printf("SISTEMA FINALIZADO COM SUCESSO!\n");
+
+  return 0;
+}
+
+void menu() {
   Produto produtos[50];
   Carrinho carrinho[50];
   int entrada, pos_pro = 0, pos_car = 0;
+  // As variaveis acompanham a posicao atual dos elementos da array
 
   printf("MERCADINHO BOA VISTA\n");
   printf("Vendemos com honestidade e confianca\n");
@@ -44,6 +67,7 @@ int main() {
     printf("[3] Comprar produto\n");
     printf("[4] Visualizar carrinho\n");
     printf("[5] Finalizar pedido\n");
+    printf("[6] Sair do Programa\n");
     printf("Opcao: ");
 
     scanf("%d", &entrada);
@@ -81,18 +105,15 @@ int main() {
         pos_car = 0; // Reinicia o carrinho
         break;
 
+      case 6:
+        printf("Encerrando programa...\n");
+        break;
+
       default:
         printf("\nOpção invalida!\n");
     }
-
-    printf("\nDeseja continuar no sistema?\n[1] Sim [0] Nao: ");
-    scanf("%d", &entrada);
     system("clear");
-  } while (entrada != 0);
-
-  printf("SISTEMA FINALIZADO COM SUCESSO!\n");
-
-  return 0;
+  } while (entrada != 6);
 }
 
 void cadastrarProduto(Produto produtos[], int posicao) {
@@ -132,6 +153,7 @@ int comprarProduto(Produto produtos[], Carrinho carrinho[], int pos_pro, int pos
     return 0;
   }
 
+  /*Consertar o bug de duplicação*/
   if (temNoCarrinho(codigo, carrinho, pos_car)) {
     for (int i = 0; i < pos_car; i++) {
       if (carrinho[i].produto.codigo == codigo) {
@@ -154,7 +176,7 @@ int comprarProduto(Produto produtos[], Carrinho carrinho[], int pos_pro, int pos
 }
 
 Produto pegarProdutoPorCodigo(int codigo, Produto produtos[]) {
-  return produtos[codigo];
+  return produtos[codigo - 1];
 }
 
 void infoProduto(Produto produto) {
