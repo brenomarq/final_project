@@ -153,7 +153,6 @@ int comprarProduto(Produto produtos[], Carrinho carrinho[], int pos_pro, int pos
     return 0;
   }
 
-  /*Consertar o bug de duplicação*/
   if (temNoCarrinho(codigo, carrinho, pos_car)) {
     for (int i = 0; i < pos_car; i++) {
       if (carrinho[i].produto.codigo == codigo) {
