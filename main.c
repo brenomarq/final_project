@@ -18,6 +18,8 @@ void listarProdutos(Produto produtos[], int pos_atual);
 
 void infoProduto(Produto produto);
 
+void visualizarCarrinho(Carrinho carrinho[], int pos_atual);
+
 int main() {
   Produto produtos[50];
   Carrinho carrinho[50];
@@ -60,7 +62,7 @@ int main() {
         break;
 
       case 4:
-        /*Visualizar carrinho*/
+        visualizarCarrinho(carrinho, pos_car);
         break;
 
       case 5:
@@ -104,4 +106,17 @@ void infoProduto(Produto produto) {
   printf("\nCodigo do produto: %d\n", produto.codigo);
   printf("Nome do produto: %s", produto.nome);
   printf("Preco do produto: %.2f\n", produto.preco);
+}
+
+void visualizarCarrinho(Carrinho carrinho[], int pos_atual) {
+  if (pos_atual == 0) {
+    printf("\nO carrinho esta vazio!\n");
+    return;
+  }
+
+  printf("Produtos no carrinho:");
+  for (int i = 0; i < pos_atual; i++) {
+    printf("\nProduto: %s", carrinho[i].produto.nome);
+    printf("Quantidade: %d\n", carrinho[i].quantidade);
+  }
 }
