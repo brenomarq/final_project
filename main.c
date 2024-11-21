@@ -11,7 +11,9 @@ typedef struct {
   int quantidade;
 } Carrinho;
 
+void listarProdutos(Produto produtos[]);
 
+void infoProduto(Produto produto);
 
 int main() {
   Produto produtos[50];
@@ -19,13 +21,15 @@ int main() {
   int entrada;
 
   do {
+    scanf("%d", &entrada);
+
     switch (entrada) {
       case 1:
         /*Cadastrar produtos*/
         break;
 
       case 2:
-        /*Listar produtos*/
+        listarProdutos(produtos);
         break;
 
       case 3:
@@ -43,7 +47,23 @@ int main() {
       default:
         printf("\nOpção inválida!\n");
     }
+
+    scanf("%d", &entrada);
   } while (entrada != 0);
 
   return 0;
+}
+
+void listarProdutos(Produto produtos[]) {
+  for (int i = 0; i <= 50; ++i) {
+    if (produtos[i].codigo == i) {
+      infoProduto(produtos[i]);
+    }
+  }
+}
+
+void infoProduto(Produto produto) {
+  printf("\nCodigo do produto: %d\n", produto.codigo);
+  printf("Nome do produto: %s\n", produto.nome);
+  printf("Preco do produto: %.2f\n", produto.preco);
 }
