@@ -13,7 +13,7 @@ typedef struct {
   int quantidade;
 } Carrinho;
 
-/*Responsavel por todo o fluxo do programa.*/
+/*Apresenta as opcoes para o usuario.*/
 void menu();
 
 /*Cadastra o produto na lista de produtos.*/
@@ -53,14 +53,7 @@ int main() {
   printf("Vendemos com honestidade e confianca\n");
 
   do {
-    printf("\nDigite o que deseja fazer no sistema:\n");
-    printf("[1] Cadastrar produtos\n");
-    printf("[2] Listar produtos\n");
-    printf("[3] Comprar produto\n");
-    printf("[4] Visualizar carrinho\n");
-    printf("[5] Finalizar pedido\n");
-    printf("[6] Sair do Programa\n");
-    printf("Opcao: ");
+    menu(); // Apresenta o menu ao usuario
 
     scanf("%d", &entrada);
     getchar();
@@ -111,7 +104,22 @@ int main() {
   return 0;
 }
 
+void menu() {
+  printf("\nDigite o que deseja fazer no sistema:\n");
+  printf("[1] Cadastrar produtos\n");
+  printf("[2] Listar produtos\n");
+  printf("[3] Comprar produto\n");
+  printf("[4] Visualizar carrinho\n");
+  printf("[5] Finalizar pedido\n");
+  printf("Opcao: ");
+}
+
 void cadastrarProduto(Produto produtos[], int posicao) {
+  if (posicao > 50) {
+    printf("\nNumero maximo de produtos ja cadastrados!\n");
+    return;
+  }
+
   system("clear");
   produtos[posicao].codigo = posicao + 1;
 
@@ -148,12 +156,19 @@ int comprarProduto(Produto produtos[], Carrinho carrinho[], int pos_pro, int pos
     return 0;
   }
 
+  if (pos_car > 50) {
+    printf("\nNumero maximo de produtos ja adicionados ao carrinho!\n");
+    return;
+  }
+
   if (temNoCarrinho(codigo, carrinho, pos_car)) {
     for (int i = 0; i < pos_car; i++) {
       if (carrinho[i].produto.codigo == codigo) {
         carrinho[i].quantidade++;
       }
     }
+
+    printf("\nProduto adicionado ao carrinho!\n");
 
     return 0;
   }
