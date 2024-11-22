@@ -11,7 +11,7 @@ da disciplina do primeiro semestre de Ciência da Computação na Universidade C
   - `Produto`: Armazena informações sobre um produto, como código, nome e preço.
   - `Carrinho`: Representa um item no carrinho, contendo um produto e a quantidade.
 - **Funções:**
-  - `menu()`: Apresenta o menu principal para o usuário e controla o fluxo do programa.
+  - `menu()`: Apresenta o menu principal para o usuário.
   - `cadastrarProduto()`: Permite cadastrar um novo produto no sistema.
   - `listarProdutos()`: Exibe a lista completa de produtos cadastrados.
   - `comprarProduto()`: Adiciona um produto ao carrinho de compras.
