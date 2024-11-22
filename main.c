@@ -44,14 +44,6 @@ o carrinho.*/
 void fecharPedido(Carrinho carrinho[], int pos_atual);
 
 int main() {
-  menu();
-
-  printf("SISTEMA FINALIZADO COM SUCESSO!\n");
-
-  return 0;
-}
-
-void menu() {
   Produto produtos[50];
   Carrinho carrinho[50];
   int entrada, pos_pro = 0, pos_car = 0;
@@ -105,15 +97,18 @@ void menu() {
         pos_car = 0; // Reinicia o carrinho
         break;
 
-      case 6:
-        printf("Encerrando programa...\n");
-        break;
-
       default:
         printf("\nOpção invalida!\n");
     }
+
+    printf("\nDeseja continuar no sistema?\n[1] Sim [0] Nao: ");
+    scanf("%d", &entrada);
     system("clear");
-  } while (entrada != 6);
+  } while (entrada != 0);
+
+  printf("SISTEMA FINALIZADO COM SUCESSO!\n");
+
+  return 0;
 }
 
 void cadastrarProduto(Produto produtos[], int posicao) {
