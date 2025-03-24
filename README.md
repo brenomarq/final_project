@@ -40,12 +40,12 @@ da disciplina do primeiro semestre de Ciência da Computação na Universidade C
 
 1. **Compilação:** Compile o código usando um compilador C, como GCC.
    ```bash
-   gcc main.c -o main
+   gcc main.c market.c -o main
    ```
 2. **Execução:** Execute o programa gerado.
 
-```bash
-./main
-```
+  ```bash
+  ./main
+  ```
 
 3. **Interação:** Siga as instruções do menu para realizar as operações desejadas.
